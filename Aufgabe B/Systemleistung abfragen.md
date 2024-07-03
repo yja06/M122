@@ -16,7 +16,7 @@ print_system_info() {
     # Betriebssystemname und -version
     os_name=$(cat /etc/*-release | grep PRETTY_NAME | cut -d '=' -f 2 | tr -d '"')
 
-    # CPU Informationen
+    # CPU Infos
     cpu_model=$(cat /proc/cpuinfo | grep "model name" | uniq | cut -d ':' -f 2 | tr -s ' ')
     cpu_cores=$(nproc)
 
@@ -24,17 +24,22 @@ print_system_info() {
     mem_total=$(free -h | awk 'NR==2 {print $2}')
     mem_used=$(free -h | awk 'NR==2 {print $3}')
 
-    # Tabelle ausgeben
-    printf "%-25s %s\n" "Systemlaufzeit:" "$uptime"
-    printf "%-25s %s\n" "Systemzeit:" "$current_time"
-    printf "%-25s %s\n" "Speicherplatz:" "$disk_space"
-    printf "%-25s %s\n" "Hostname:" "$hostname"
-    printf "%-25s %s\n" "IP-Adresse:" "$ip_address"
-    printf "%-25s %s\n" "Betriebssystem:" "$os_name"
-    printf "%-25s %s\n" "CPU-Modell:" "$cpu_model"
-    printf "%-25s %s\n" "CPU-Cores:" "$cpu_cores"
-    printf "%-25s %s\n" "Arbeitsspeicher insgesamt:" "$mem_total"
-    printf "%-25s %s\n\n" "Arbeitsspeicher genutzt:" "$mem_used"
+    # Tabellenkopf
+    printf "%-20s | %-40s\n" "Metrik" "Wert"
+    printf "%-20s | %-40s\n" "--------" "----------------------------------------"
+
+    # Tabelle
+    printf "%-20s | %-40s\n" "Systemlaufzeit" "$uptime"
+    printf "%-20s | %-40s\n" "Systemzeit" "$current_time"
+    printf "%-20s | %-40s\n" "Disk Speicher Total" "$disk_space_total"
+    printf "%-20s | %-40s\n" "Disk Speicher Frei" "$disk_space_free"
+    printf "%-20s | %-40s\n" "Hostname" "$hostname"
+    printf "%-20s | %-40s\n" "IP-Adresse" "$ip_address"
+    printf "%-20s | %-40s\n" "OS-Name" "$os_name"
+    printf "%-20s | %-40s\n" "CPU Modell" "$cpu_model"
+    printf "%-20s | %-40s\n" "CPU Cores" "$cpu_cores"
+    printf "%-20s | %-40s\n" "Arbeitsspeicher Total" "$mem_total"
+    printf "%-20s | %-40s\n" "Arbeitsspeicher Genutzt" "$mem_used"
 }
 
 # Hauptprogramm
