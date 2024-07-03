@@ -46,3 +46,20 @@ if [ "$1" == "-f" ]; then
     print_system_info >> "$log_file"
     echo "Systeminformationen wurden in die Datei $log_file geschrieben."
 fi
+
+
+# Script ausführbar machen
+chmod +x system_leistungsabfrage.sh
+
+# Script testen
+./system_leistungsabfrage.sh
+
+# Script ausführen mit Logfile
+./system_leistungsabfrage.sh -f
+
+# Script regelmässig machen
+crontab -e
+
+# In cron einfügen
+## täglich um 6 Uhr wird der Script ausgeführt
+0 6 * * * /pfad/zum/skript/system_leistungsabfrage.sh -f
